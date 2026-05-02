@@ -1,10 +1,6 @@
 import { ExecutionContext, createParamDecorator } from '@nestjs/common'
 
-<<<<<<<< Updated upstream:apps/gateway/src/common/decorators/current-user.decorator.ts
-import { JwtUser } from '../../modules/auth/interfaces/jwt-user.interface'
-========
 import { JwtUser } from '../interfaces/jwt-user.interface'
->>>>>>>> Stashed changes:src/shared/decorators/current-user.decorator.ts
 
 export const CurrentUser = createParamDecorator((_: unknown, ctx: ExecutionContext): JwtUser => {
   const request = ctx.switchToHttp().getRequest()

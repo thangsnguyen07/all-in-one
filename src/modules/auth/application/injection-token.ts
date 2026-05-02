@@ -1,0 +1,5 @@
+export const InjectionToken = {
+  USER_TOKEN_REPOSITORY: Symbol('USER_TOKEN_REPOSITORY'),
+  USER_TOKEN_MAPPER: Symbol('USER_TOKEN_MAPPER'),
+  AUTH_SERVICE: Symbol('AUTH_SERVICE'),
+}

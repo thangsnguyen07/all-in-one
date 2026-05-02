@@ -19,14 +19,6 @@
     "noFallthroughCasesInSwitch": true,
     "strict": true,
     "paths": {
-<<<<<<<< Updated upstream:apps/api/chat/tsconfig.json
-      "@/*": [
-        "src/*"
-      ]
-    },
-  }
-}
-========
       "@shared/*": ["src/shared/*"],
       "@modules/*": ["src/modules/*"]
     }
@@ -34,4 +26,3 @@
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
 }
->>>>>>>> Stashed changes:tsconfig.json

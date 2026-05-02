@@ -1,5 +1,5 @@
 services:
-  postgresql:
+  postgres:
     image: postgres
     environment:
       POSTGRES_USER: user
@@ -9,57 +9,27 @@ services:
       - 5432:5432
     volumes:
       - pgdata:/var/lib/postgresql/data
-      # - ./pg_hba.conf:/etc/postgresql/pg_hba.conf
-      - ./docker/postgresql/init/schemas.sql:/docker-entrypoint-initdb.d/schemas.sql
     networks:
       - all-in-one
 
-  api_gateway:
-    container_name: api_gateway
+  api:
     build:
-      context: ./packages
-      args:
-        - SERVICE_NAME=api-gateway
+      context: .
     ports:
       - 3000:3000
-    volumes:
-      - ./packages:/app
-    command: npm run start:dev api-gateway
-    networks:
-      - all-in-one
-
-  user_service:
-    container_name: user_service
-    build:
-      context: ./packages
-      args:
-        - SERVICE_NAME=user
-        - PORT=5000
-    ports:
-      - 5000:5000
     depends_on:
-      - postgresql
-    volumes:
-      - ./packages:/app
+      - postgres
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=user
+      - DB_PASSWORD=password
+      - DB_DATABASE=postgres
+      - JWT_ACCESS_SECRET=access-secret-monolith
+      - JWT_REFRESH_SECRET=refresh-secret-monolith
     networks:
       - all-in-one
-    command: npm run start:dev user
 
-  auth_service:
-    container_name: auth_service
-    build:
-      context: ./packages
-      args:
-        - SERVICE_NAME=auth
-        - PORT=5001
-    ports:
-      - 5001:5001
-    volumes:
-      - ./packages:/app
-    networks:
-      - all-in-one
-    command: npm run start:dev auth 
-  
 volumes:
   pgdata:
     driver: local
